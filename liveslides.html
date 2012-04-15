@@ -1,0 +1,32 @@
+<head>
+  <title>liveslides</title>
+</head>
+
+<body>
+  {{> slide_list}}
+  {{> current_slide}}
+</body>
+
+<template name="slide_list">
+  <div id="index">
+    <h3>Table of Contents</h3>
+    <ul>
+      {{#each slides}}
+      <li class="slide-entry{{is_current}}" id="{{_id}}">{{title}}</li>
+      {{/each}}
+    </ul>
+  </div>
+</template>
+
+<template name="current_slide">
+  {{#with slide}}
+  <div id="main-slide">
+    <div class="slide">
+      <h1>{{title}}</h1>
+      <div class="slide-body">
+        {{body}}
+      </div>
+    </div>
+  </div>
+  {{/with}}
+</template>
