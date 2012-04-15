@@ -1,0 +1,5 @@
+h1. Live Slides
+
+Note: Live Slides is a work in progress.  Much of what's described below isn't implemented yet, but it _is_ what I plan to do. 
+
+Live Slides is a project that lets you create a slideshow with textile and html.  Style it with CSS and make it lively with javascript.  When you present, let your audience follow along on their own computers.  As you advance the slideshow, their view will advance; they can skip around and look at a previous slide while you move on, but they will always be able to rejoin your show with a single click. 
