@@ -2,22 +2,19 @@
 div#index {
   float: right;
   width: 200px;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  border: solid black 3px;
 }
 
 li.slide-entry.current {
-  border: solid green 2px;
+  background: #ffb;
 }
 
 li.slide-entry {
   list-style-type: none;
-  margin: 10px;
+  padding: 5px 15px;
 }
 
 #index ul {
-  margin: 10px;
+  margin: 0;
   padding: 0;
 }
 
@@ -27,4 +24,28 @@ h1 {
 
 div#main-slide {
   font-size: +3;
+  margin: 0 25px;
+}
+
+a#new-slide {
+  margin: 15px 20px;
+  display: block;
+}
+
+a, a:visited, a:active, a:hover {
+  text-decoration: none;
+  color: #333;
+}
+
+a:hover {
+  color: #555;
+}
+
+#title-box {
+  width: 80%;
+}
+
+#body-box {
+  width: 80%;
+  height: 100%;
 }

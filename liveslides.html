@@ -15,6 +15,7 @@
       <li class="slide-entry{{is_current}}" id="{{_id}}">{{title}}</li>
       {{/each}}
     </ul>
+    <a href="#" id="new-slide">another!</a>
   </div>
 </template>
 
@@ -22,11 +23,18 @@
   {{#with slide}}
   <div id="main-slide">
     <div class="slide">
-      <h1>{{title}}</h1>
-      <div class="slide-body">
-        {{body}}
+      <h1 id="slide-title">{{title}}</h1>
+      <div id="slide-body">
+        {{{html_body}}}
       </div>
     </div>
   </div>
   {{/with}}
+</template>
+
+<template name="edit_slide">
+  <div id="edit-slide">
+    <div><input type="text" id="title-box" value="{{title}}" /></div>
+    <div><textarea rows="25" cols="80" id="body-box">{{body}}</textarea></div>
+  </div>
 </template>
