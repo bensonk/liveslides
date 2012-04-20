@@ -5,12 +5,18 @@ div#index {
 }
 
 li.slide-entry.current {
-  background: #ffb;
+  background: #fda;
+}
+
+li.slide-entry.client_current {
+  background: #bbf;
 }
 
 li.slide-entry {
   list-style-type: none;
   padding: 5px 15px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 
 #index ul {

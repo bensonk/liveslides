@@ -12,7 +12,7 @@
     <h3>Table of Contents</h3>
     <ul>
       {{#each slides}}
-      <li class="slide-entry{{is_current}}" id="{{_id}}">{{title}}</li>
+      <li class="slide-entry{{is_current}}{{is_client_current}}" id="{{_id}}">{{title}}</li>
       {{/each}}
     </ul>
     <a href="#" id="new-slide">another!</a>
