@@ -28,6 +28,10 @@ h1 {
   text-align: center;
 }
 
+#index h3 {
+  margin: 10px 25px 10px 15px;
+}
+
 div#main-slide {
   font-size: +3;
   margin: 0 25px;
