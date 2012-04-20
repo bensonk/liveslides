@@ -1,5 +1,4 @@
 var slides = new Meteor.Collection("slides");
-Session.set("admin", false);
 
 function set_current_slide(id) {
   if(Session.equals("admin",true)) {
@@ -38,7 +37,7 @@ if (Meteor.is_client) {
 
   Template.slide_list.is_client_current = function() {
     var current = Session.get("current_slide");
-    if(current)
+    if(current && !Session.get("admin"))
       return (current._id == this._id) ? " client_current" : "";
     else
       return "";
@@ -47,7 +46,7 @@ if (Meteor.is_client) {
 
   Template.current_slide.slide = function() {
     var slide = Session.get("current_slide");
-    if (!slide)
+    if (Session.get("admin") || !slide)
       slide = current_slide();
     if(slide) slide.html_body = linen(slide.body);
     return slide || false;
@@ -64,6 +63,7 @@ if (Meteor.is_client) {
     slides.update({ _id: current_slide()._id }, { $set: new_values } );
   }
   function start_editing() {
+    if(!Session.get("admin")) return false;
     $('#main-slide').replaceWith(Template.edit_slide(current_slide()));
     $('#title-box, #body-box').blur(save_slide);
   }
