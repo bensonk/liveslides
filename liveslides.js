@@ -7,7 +7,8 @@ function set_current_slide(id) {
     slides.update({ _id: id }, { $set: { current: true } });
   }
   else {
-    if(id == current_slide()._id)
+    var current = current_slide();
+    if(current && id == current_id)
       Session.set("current_slide", null);
     else
       Session.set("current_slide", slides.findOne({ _id: id }));
@@ -20,6 +21,12 @@ function current_slide() {
 
 function add_slide() {
   set_current_slide(slides.insert({ title: "New Slide", body: "Edit me!" }));
+}
+
+function remove_slide(id) {
+  if(id == current_slide()._id)
+    set_current_slide(slides.findOne({current: false})._id);
+  slides.remove({ _id: id });
 }
 
 
@@ -41,6 +48,10 @@ if (Meteor.is_client) {
       return (current._id == this._id) ? " client_current" : "";
     else
       return "";
+  };
+
+  Template.slide_list.admin = function() {
+    return Session.get("admin");
   };
 
 
@@ -70,7 +81,10 @@ if (Meteor.is_client) {
 
   Template.slide_list.events = {
     'click #index ul li': function(e) { set_current_slide(e.currentTarget.id); },
-    'click #new-slide': add_slide
+    'click #new-slide': add_slide,
+    'click a.admin-delete': function(e) {
+      remove_slide($(e.currentTarget).attr("data-slide-id"));
+    }
   };
   Template.current_slide.events = {
     'click #slide-title': function(e) {
@@ -80,7 +94,7 @@ if (Meteor.is_client) {
     'click #slide-body': function(e) {
       start_editing();
       $("#body-box").focus();
-    },
+    }
   };
 }
 

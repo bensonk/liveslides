@@ -12,7 +12,12 @@
     <h3>Slides</h3>
     <ul>
       {{#each slides}}
-      <li class="slide-entry{{is_current}}{{is_client_current}}" id="{{_id}}">{{title}}</li>
+      <li class="slide-entry{{is_current}}{{is_client_current}}" id="{{_id}}">
+        {{title}}
+        {{#if admin}}
+          <a href="#" data-slide-id="{{_id}}" class="admin-control admin-delete">rm</a>
+        {{/if}}
+      </li>
       {{/each}}
     </ul>
     <a href="#" id="new-slide">another!</a>

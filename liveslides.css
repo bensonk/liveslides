@@ -19,6 +19,10 @@ li.slide-entry {
   -webkit-border-radius: 5px;
 }
 
+li.slide-entry .admin-control {
+  float: right;
+}
+
 #index ul {
   margin: 0;
   padding: 0;
