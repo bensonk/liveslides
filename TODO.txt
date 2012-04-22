@@ -1,0 +1,14 @@
+Mandatory:
+* Slide ordering
+* Draggable slide reordering
+* Code highlighting
+* Authentication
+
+Nice to have:
+* User accounts
+* Multiple slide decks
+** Owned by a given user
+** Admin privs shared to other users (ala google docs)
+* Custom (user generated & edited) CSS
+* Custom JS
+* Limit users to slides that have been shown (i.e. slides 0 - current_slide)
