@@ -1,22 +1,34 @@
 var slides = new Meteor.Collection("slides");
 
+function set_db_current_slide(id) {
+  slides.update({}, { $set: { current: false } }, { multi: true });
+  slides.update({ _id: id }, { $set: { current: true } });
+}
+
+function current_slide() {
+  var current = slides.findOne({ current: true });
+  if(current == null) {
+    var first = slides.findOne({});
+    if(first) {
+      current = slides.findOne({});
+      set_db_current_slide(current._id);
+    }
+  }
+  return current;
+}
+
 function set_current_slide(id) {
   if(Session.equals("admin",true)) {
     // If admin, set in the db for everyone
-    slides.update({}, { $set: { current: false } }, { multi: true });
-    slides.update({ _id: id }, { $set: { current: true } });
+    set_db_current_slide(id);
   }
   else {
     var current = current_slide();
-    if(current && id == current_id)
+    if(current && id == current._id)
       Session.set("current_slide", null);
     else
       Session.set("current_slide", slides.findOne({ _id: id }));
   }
-}
-
-function current_slide() {
-  return slides.findOne({ current: true });
 }
 
 function add_slide() {
@@ -24,7 +36,7 @@ function add_slide() {
 }
 
 function remove_slide(id) {
-  if(id == current_slide()._id)
+  if(slides.find({ _id: id }).current)
     set_current_slide(slides.findOne({current: false})._id);
   slides.remove({ _id: id });
 }
