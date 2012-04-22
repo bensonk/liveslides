@@ -1,5 +1,4 @@
 Mandatory:
-* Slide ordering
 * Draggable slide reordering
 * Code highlighting
 * Authentication

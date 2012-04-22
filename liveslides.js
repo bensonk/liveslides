@@ -47,7 +47,7 @@ if (Meteor.is_client) {
   // Template Helpers
   //
   Template.slide_list.slides = function () {
-    return slides.find();
+    return slides.find({}, { sort: { 'order': 'desc' } });
   };
 
   Template.slide_list.is_current = function() {
@@ -112,9 +112,5 @@ if (Meteor.is_client) {
 
 if (Meteor.is_server) {
   Meteor.startup(function () {
-    if(!current_slide()) {
-      // Set first slide to be current
-      slides.update({}, { $set: { current: true } });
-    }
   });
 }
