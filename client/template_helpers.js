@@ -18,7 +18,6 @@ Template.slide_list.admin = function() {
   return Session.get("admin");
 };
 
-
 Template.current_slide.slide = function() {
   var slide = Session.get("current_slide");
   if (Session.get("admin") || !slide)

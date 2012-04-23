@@ -1,5 +1,4 @@
 Mandatory:
-* Draggable slide reordering
 * Code highlighting
 * Authentication
 
@@ -11,3 +10,4 @@ Nice to have:
 * Custom (user generated & edited) CSS
 * Custom JS
 * Limit users to slides that have been shown (i.e. slides 0 - current_slide)
+* Clean up draggable ordering
