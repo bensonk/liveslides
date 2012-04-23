@@ -19,7 +19,6 @@ function current_slide() {
 
 function set_current_slide(id) {
   if(Session.equals("admin",true)) {
-    // If admin, set in the db for everyone
     set_db_current_slide(id);
   }
   else {
@@ -40,5 +39,3 @@ function remove_slide(id) {
     set_current_slide(slides.findOne({current: false})._id);
   slides.remove({ _id: id });
 }
-
-
