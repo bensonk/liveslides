@@ -16,7 +16,6 @@ function set_current_slide(id) {
     Session.set("current", id);
   }
   Session.set("client_current", id);
-  prettify();
 
   function set_db_current_slide(id) {
     if(!Session.equals('current', id)) {

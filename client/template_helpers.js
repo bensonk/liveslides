@@ -25,6 +25,11 @@ Template.current_slide.editing_body = function() {
 Template.current_slide.html_body = function() {
   return linen(this.body);
 }
+Template.current_slide.prettify = function() {
+  Meteor.defer(function() {
+    prettify();
+  });
+}
 Template.current_slide.slide = function() {
   var client = slides.findOne(Session.get('client_current'));
   if(client) { 

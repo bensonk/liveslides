@@ -12,7 +12,6 @@ Template.current_slide.events = {
   },
   'blur #slide-title': function() {
     $('#slide-title').attr('contentEditable', null);
-    prettify();
   }, 
   'keydown #slide-title': function(e) {
     if(e.keyCode === 13) {
@@ -39,6 +38,5 @@ Template.current_slide.events = {
     var new_body = $('#body-box').val();
     if(slide && !_.isEqual(slide.body, new_body))
       slides.update(slide._id, {$set: {body: $('#body-box').val()}});
-    prettify();
   }
 };
