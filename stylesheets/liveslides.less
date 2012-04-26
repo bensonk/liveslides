@@ -12,7 +12,32 @@ div#index {
     padding: 0;
   }
 }
+li .star {
+  float: left;
+  width: 12px;
+  height: 15px;
+  overflow: hidden;
+  margin-right: 5px;
+  :hover {
+    cursor: pointer;
+  }
+}
 
+li .order {
+  float: left;
+  margin-right: 5px;
+}
+li .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 180px;
+  float: left;
+  line-height: 1.1;
+}
+li:hover {
+  background: #bbf;
+}
 li.slide-entry.current {
   background: #fda !important;
 }
@@ -27,6 +52,7 @@ li.slide-entry {
   padding: 5px 15px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
+  height: 1.1em;
   .admin-control {
     float: right;
   }

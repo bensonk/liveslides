@@ -13,13 +13,22 @@
     <ul>
       {{#each slides}}
       <li class="slide-entry{{is_current}}{{is_client_current}}" id="{{_id}}">
-        {{order}}
-        {{title}}
         {{#if admin}}
-          <a href="#" class="admin-control admin-delete"><img src="images/delete.png" /></a>
-          <a href="#" class="admin-control admin-next"><img src="images/arrow_down.png" /></a>
-          <a href="#" class="admin-control admin-prev"><img src="images/arrow_up.png" /></a>
+        <span class='star'>
+          <img src="images/star.png" />
+        </span>
+        <span class='admin-control'>
+          <a href="#" class="admin-prev"><img src="images/arrow_up.png" /></a>
+          <a href="#" class="admin-next"><img src="images/arrow_down.png" /></a>
+          <a href="#" class="admin-delete"><img src="images/delete.png" /></a>
+        </span>
         {{/if}}
+        <span class='order'>
+          {{order}}
+        </span>
+        <span class='title'>
+          {{title}}
+        </span>
       </li>
       {{/each}}
     </ul>
