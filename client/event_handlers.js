@@ -34,9 +34,8 @@ Template.current_slide.events = {
   },
   'blur #slide-body': function(e) {
     Session.set('editingBody', false);
-    var slide = slides.findOne(Session.get('current')); 
+    var slide = slides.findOne(Session.get('client_current')); 
     var new_body = $('#body-box').val();
-    console.log(slide, new_body);
     if(slide && !_.isEqual(slide.body, new_body))
       slides.update(slide._id, {$set: {body: new_body}});
   }
