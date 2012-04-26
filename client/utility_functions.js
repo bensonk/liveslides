@@ -5,19 +5,25 @@ function normalize_slide_order() {
   }
 }
 
-function save_slide() {
-  var new_values = {
-    title: $('#title-box').attr('value'),
-    body:  $('#body-box').attr('value')
-  };
-  slides.update(current_slide()._id, { $set: new_values } );
+function prettify() {
+  Meteor.flush();
+  $("pre").addClass('prettyprint');
+  prettyPrint();
 }
+function set_current_slide(id) {
+  if(Session.equals("admin",true)) {
+    set_db_current_slide(id);
+    Session.set("current", id);
+  }
+  Session.set("client_current", id);
+  prettify();
 
-function start_editing() {
-  if(!Session.get("admin")) return false;
-  $('#main-slide').replaceWith(Template.edit_slide(current_slide()));
-  $('#title-box, #body-box').blur(save_slide);
-  return false;
+  function set_db_current_slide(id) {
+    if(!Session.equals('current', id)) {
+      slides.update({current: true}, { $set: { current: false } }, { multi: true });
+      slides.update({ _id: id }, { $set: { current: true } });
+    }
+  }
 }
 
 function set_admin(x) {

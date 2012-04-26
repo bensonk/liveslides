@@ -16,12 +16,11 @@ Template.current_slide.events = {
   'keydown #slide-title': function(e) {
     if(e.keyCode === 13) {
       e.preventDefault();
-      var slide = slides.findOne(Session.get('current'));
+      var slide = current_slide(); 
       var new_title = $('#slide-title').text().replace(/(^\s+|\s+$)/g,'');
       if(new_title.length > 3 && Session.get('admin')) {
         slides.update(slide._id, {$set : {title: new_title}});
       } else {
-        console.log('slide title too short');
         $('#slide-title').text(slide.title);
       }
       $('#slide-title').blur();
@@ -34,17 +33,11 @@ Template.current_slide.events = {
     $('#slide-body textarea').focus();
   },
   'blur #slide-body': function(e) {
-    //$('#slide-body').removeClass('editing').attr('contentEditable', null);
     Session.set('editingBody', false);
-    var slide = slides.findOne(Session.get('current'));
-    slides.update(slide._id, {$set: {body: $('#body-box').val()}});
+    var slide = current_slide();
+    var new_body = $('#body-box').val();
+    if(slide && !_.isEqual(slide.body, new_body))
+      slides.update(slide._id, {$set: {body: $('#body-box').val()}});
+    prettify();
   }
-  /*'click #slide-title': function(e) {
-    start_editing();
-    $("#title-box").focus();
-  },
-  'click #slide-body': function(e) {
-    start_editing();
-    $("#body-box").focus();
-  }*/
 };

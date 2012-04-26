@@ -1,36 +1,12 @@
-function set_db_current_slide(id) {
-  if(!Session.equals('current', id)) {
-    slides.update({current: true}, { $set: { current: false } }, { multi: true });
-    slides.update({ _id: id }, { $set: { current: true } });
-  }
-}
-
 function current_slide() {
-  return slides.findOne({ current: true }) || slides.findOne({});
-}
-
-function set_current_slide(id) {
-  if(Session.equals("admin",true)) {
-    set_db_current_slide(id);
-    Session.set("current", id);
-  }
-  else {
-    var current = current_slide();
-    if(current && id == current._id)
-      Session.set("current_slide", null);
-    else
-      Session.set("current_slide", slides.findOne({ _id: id }));
-  }
-  Meteor.flush();
-  $("pre").addClass('prettyprint');
-  prettyPrint();
+  return slides.findOne({ current: true }) || slides.findOne({}, {sort: {order: 1}});
 }
 
 function add_slide() {
   set_current_slide(slides.insert({ title: "New Slide", body: "Edit me!", order: slides.find().count() }));
 }
 function insert_slide() {
-  var current = slides.findOne(Session.get('current'));
+  var current = current_slide(); 
   if(current) {
     slides.update({order : {$gt: current.order}}, {$inc: {order: 1}}, {multi: true});
     set_current_slide(slides.insert({ title: "New Slide"+current.order, body: "Edit me!", order: current.order+1 }));
@@ -66,7 +42,7 @@ function move_next(id) {
 }
 
 function remove_slide(id) {
-  if(slides.findOne(Session.get('current'))) set_current_slide(slides.findOne({current: false})._id);
+  if(current_slide()) set_current_slide(slides.findOne({current: false})._id);
   var slide = slides.findOne(id);
   slides.update({order : {$gt: slide.order}}, {$inc: {order: -1}}, {multi: true});
   slides.remove({ _id: id });
