@@ -1,10 +1,10 @@
 Template.slide_list.events = {
-  'click #index ul li': function(e) { Session.set("client_current", e.currentTarget.id); },
+  'click #index ul li': function(e) { console.log('li'); set_current_slide(e.currentTarget.id); },
   'click #new-slide':  function(e) { insert_slide(e); },
-  'click #index ul li .star': function(e) { set_current_slide($(e.currentTarget).parent().attr('id'));},
   'click a.admin-next': function(e) { move_next($(e.currentTarget).parents("li").attr("id")); },
   'click a.admin-prev': function(e) { move_prev($(e.currentTarget).parents("li").attr("id")); },
-  'click a.admin-delete': function(e) { remove_slide($(e.currentTarget).parents("li").attr("id")); }
+  'click a.admin-delete': function(e) { remove_slide($(e.currentTarget).parents("li").attr("id")); },
+  'click a.admin-edit': function(e) {e.stopPropagation(); Session.set("client_current", $(e.currentTarget).parent().attr('id'));}
 };
 Template.current_slide.events = {
   'dblclick #slide-title': function(e) {

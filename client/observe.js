@@ -1,3 +1,4 @@
+
 Meteor.autosubscribe(function() {
   Meteor.subscribe( 'slides', function() {
     Session.set('current', current_slide()._id);
