@@ -13,6 +13,7 @@
     <ul>
       {{#each slides}}
       <li class="slide-entry{{is_current}}{{is_client_current}}" id="{{_id}}">
+        {{order}}
         {{title}}
         {{#if admin}}
           <a href="#" class="admin-control admin-delete"><img src="images/delete.png" /></a>

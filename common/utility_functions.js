@@ -1,6 +1,8 @@
 function set_db_current_slide(id) {
-  slides.update({}, { $set: { current: false } }, { multi: true });
-  slides.update({ _id: id }, { $set: { current: true } });
+  if(!Session.equals('current', id)) {
+    slides.update({current: true}, { $set: { current: false } }, { multi: true });
+    slides.update({ _id: id }, { $set: { current: true } });
+  }
 }
 
 function current_slide() {
@@ -10,6 +12,7 @@ function current_slide() {
 function set_current_slide(id) {
   if(Session.equals("admin",true)) {
     set_db_current_slide(id);
+    Session.set("current", id);
   }
   else {
     var current = current_slide();
@@ -21,7 +24,16 @@ function set_current_slide(id) {
 }
 
 function add_slide() {
-  set_current_slide(slides.insert({ title: "New Slide", body: "Edit me!" }));
+  set_current_slide(slides.insert({ title: "New Slide", body: "Edit me!", order: slides.find().count() }));
+}
+function insert_slide() {
+  var current = slides.findOne(Session.get('current'));
+  if(current) {
+    slides.update({order : {$gt: current.order}}, {$inc: {order: 1}}, {multi: true});
+    set_current_slide(slides.insert({ title: "New Slide"+current.order, body: "Edit me!", order: current.order+1 }));
+  } else {
+    set_current_slide(slides.insert({ title: "New Slide", body: "Edit me!", order: slides.find().count() }));
+  }
 }
 
 function move_prev(id) {
@@ -51,7 +63,8 @@ function move_next(id) {
 }
 
 function remove_slide(id) {
-  if(slides.find({ _id: id }).current)
-    set_current_slide(slides.findOne({current: false})._id);
+  if(slides.findOne(Session.get('current'))) set_current_slide(slides.findOne({current: false})._id);
+  var slide = slides.findOne(id);
+  slides.update({order : {$gt: slide.order}}, {$inc: {order: -1}}, {multi: true});
   slides.remove({ _id: id });
 }
