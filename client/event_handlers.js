@@ -12,6 +12,7 @@ Template.current_slide.events = {
   },
   'blur #slide-title': function() {
     $('#slide-title').attr('contentEditable', null);
+    prettify();
   }, 
   'keydown #slide-title': function(e) {
     if(e.keyCode === 13) {
