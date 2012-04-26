@@ -1,3 +1,15 @@
+Meteor.methods({
+  update: function(selector, updates, multi) {
+    slides.update(selector, updates, multi);
+  },
+  insert: function(attributes) {
+    slides.insert(attributes);
+  },
+  remove: function(selector) {
+    slides.remove(selector);
+  }
+});
+
 function normalize_slide_order() {
   var slide_ids = $("#index li").map(function(i, s) { return s.id; });
   for(i in _.range(slide_ids.length)) {
