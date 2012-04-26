@@ -30,16 +30,26 @@
 </template>
 
 <template name="current_slide">
+  {{#if slide}}
   {{#with slide}}
   <div id="main-slide">
     <div class="slide">
       <h1 id="slide-title">{{title}}</h1>
       <div id="slide-body">
-        {{{html_body}}}
+        {{#if editing_body}}
+          {{> edit_body}}
+        {{else}}
+          {{{html_body}}}
+        {{/if}}
       </div>
     </div>
   </div>
   {{/with}}
+  {{/if}}
+</template>
+
+<template name="edit_body">
+  <div><textarea rows="25" cols="80" id="body-box">{{body}}</textarea></div>
 </template>
 
 <template name="edit_slide">

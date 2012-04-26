@@ -10,7 +10,7 @@ function save_slide() {
     title: $('#title-box').attr('value'),
     body:  $('#body-box').attr('value')
   };
-  slides.update({ _id: current_slide()._id }, { $set: new_values } );
+  slides.update(current_slide()._id, { $set: new_values } );
 }
 
 function start_editing() {

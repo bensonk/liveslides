@@ -21,6 +21,9 @@ function set_current_slide(id) {
     else
       Session.set("current_slide", slides.findOne({ _id: id }));
   }
+  Meteor.flush();
+  $("pre").addClass('prettyprint');
+  prettyPrint();
 }
 
 function add_slide() {

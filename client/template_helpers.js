@@ -17,11 +17,13 @@ Template.slide_list.is_client_current = function() {
 Template.slide_list.admin = function() {
   return Session.get("admin");
 };
-
+Template.current_slide.editing_body = function() {
+  return Session.get('editingBody');
+}
+Template.current_slide.html_body = function() {
+  return linen(this.body);
+}
 Template.current_slide.slide = function() {
-  var slide = Session.get("current_slide");
-  if (Session.get("admin") || !slide)
-    slide = current_slide();
-  if(slide) slide.html_body = linen(slide.body);
+  var slide = slides.findOne(Session.get("current"));
   return slide || false;
 };

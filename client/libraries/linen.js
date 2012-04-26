@@ -478,12 +478,12 @@ var linen = (function() {
                 "</p>";
       }
       function blockcode(b) {
-        return "<pre" + html_attrs(b) + "><code>" +
+        return "<pre " + html_attrs(b) + "><code>" +
                  b.content +
                "</code></pre>";
       }
       function preformatted(b) {
-        return "<pre" + html_attrs(b) + ">" +
+        return "<pre " + html_attrs(b) + ">" +
                  b.content +
                "</pre>";
       }
