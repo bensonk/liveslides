@@ -45,7 +45,11 @@
         {{#if editing_body}}
           {{> edit_body}}
         {{else}}
-          {{{html_body}}}
+          {{#if use_markdown}}
+            {{#markdown}}{{{body}}}{{/markdown}}
+          {{else}}
+            {{{html_body}}}
+          {{/if}}
         {{/if}}
       </div>
     </div>
