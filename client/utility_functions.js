@@ -1,7 +1,7 @@
 function normalize_slide_order() {
   var slide_ids = $("#index li").map(function(i, s) { return s.id; });
   for(i in _.range(slide_ids.length)) {
-    slides.update({ _id: slide_ids[i] }, { $set: { order: i } });
+    update({ _id: slide_ids[i] }, { $set: { order: i } });
   }
 }
 
@@ -19,8 +19,8 @@ function set_current_slide(id) {
 
   function set_db_current_slide(id) {
     if(!Session.equals('current', id)) {
-      slides.update({current: true}, { $set: { current: false } }, { multi: true });
-      slides.update({ _id: id }, { $set: { current: true } });
+      update({current: true}, { $set: { current: false } }, { multi: true });
+      update({ _id: id }, { $set: { current: true } });
     }
   }
 }

@@ -14,19 +14,26 @@ Meteor.publish('slides', function() {
   return slides.find();
 });
 
-/*
+var server_password = 'supersecret';
 Meteor.methods({
-  reset: function() {
-    shows.remove({});
-    slides.remove({});
-    var show_id = shows.insert({title: 'Getting started with liveslides', created_at: Date.now()})
-    var slides =[{title: 'welcome to your slideshow'},{}, {}]
-    for (var i = 0; i < stops.length; i++)
-      Days.insert({stop: stops[i], order: i+1, trip_id: trip_id, created_at: Date.now(), updated_at: Date.now()});
+  update: function(selector, updates, multi, passcode) {
+    if(passcode && passcode === server_password) {
+      slides.update(selector, updates, multi);
+    }
+  },
+  insert: function(attributes, passcode) {
+    if(passcode && passcode === server_password) {
+      slides.insert(attributes);
+    }
+  },
+  remove: function(selector, passcode) {
+    if(passcode && passcode === server_password) {
+      slides.remove(selector);
+    }
   }
-})
+});
 Meteor.startup(function() {
-  if (Trips.find().count() === 0) {
-    Meteor.call('reset');
-  }
-});*/
+  Meteor.default_server.method_handlers['/slides/insert'] = function () {};
+  Meteor.default_server.method_handlers['/slides/update'] = function () {};
+  Meteor.default_server.method_handlers['/slides/remove'] = function () {};
+});

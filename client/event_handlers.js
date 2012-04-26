@@ -1,5 +1,5 @@
 Template.slide_list.events = {
-  'click #index ul li': function(e) { console.log('li'); set_current_slide(e.currentTarget.id); },
+  'click #index ul li': function(e) { set_current_slide(e.currentTarget.id); },
   'click #new-slide':  function(e) { insert_slide(e); },
   'click a.admin-next': function(e) { move_next($(e.currentTarget).parents("li").attr("id")); },
   'click a.admin-prev': function(e) { move_prev($(e.currentTarget).parents("li").attr("id")); },
@@ -20,7 +20,7 @@ Template.current_slide.events = {
       var slide = slides.findOne(Session.get('client_current')); 
       var new_title = $('#slide-title').text().replace(/(^\s+|\s+$)/g,'');
       if(new_title.length > 3 && Session.get('admin')) {
-        slides.update(slide._id, {$set : {title: new_title}});
+        update(slide._id, {$set : {title: new_title}});
       } else {
         $('#slide-title').text(slide.title);
       }
@@ -38,6 +38,6 @@ Template.current_slide.events = {
     var slide = slides.findOne(Session.get('client_current')); 
     var new_body = $('#body-box').val();
     if(slide && !_.isEqual(slide.body, new_body))
-      slides.update(slide._id, {$set: {body: new_body}});
+      update(slide._id, {$set: {body: new_body}});
   }
 };
