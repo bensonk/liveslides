@@ -17,7 +17,7 @@ Template.current_slide.events = {
   'keydown #slide-title': function(e) {
     if(e.keyCode === 13) {
       e.preventDefault();
-      var slide = slides.findOne(Session.get('current')); 
+      var slide = slides.findOne(Session.get('client_current')); 
       var new_title = $('#slide-title').text().replace(/(^\s+|\s+$)/g,'');
       if(new_title.length > 3 && Session.get('admin')) {
         slides.update(slide._id, {$set : {title: new_title}});
