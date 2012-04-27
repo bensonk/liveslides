@@ -37,6 +37,7 @@
       <h1> {{passcode}}</h1>
       <span>You will need to enter this code in the future in order to edit slides.</span>
       <span>Someday meteor will have auth working for real, this is just a temporary thing.</span>
+      <input id='ok' type='button' value='OK, take me to the show!' />
     {{else}}
       <span> Please enter your passcode to edit the show</span>
       <input id='auth_input' placeholder='purple-monkeyshit' />
@@ -94,6 +95,7 @@
     </ul>
     {{#if admin}}
       <a href="#" id="new-slide">another!</a>
+      <a href="#" id="destroy-show">Destroy the show!</a>
     {{/if}}
   </div>
 </template>

@@ -34,6 +34,25 @@ Meteor.methods({
       return Slides.remove(selector);
     }
   },
+  // -- Methods for Slideshows -- //
+  updateShow: function(selector, updates, multi, passcode) {
+    var show = Shows.findOne(selector.show_id);
+    if(show && passcode && (passcode === show.secret)) {
+      return Shows.update(selector, updates, multi);
+    }
+  },
+  newShow: function(code) {
+    var show_id = Shows.insert({title: code, body: 'nothing supplied as of yet', created_at: Date.now(), secret: code});
+    return show_id;
+  },
+  removeShow: function(show_id, passcode) {
+    var secret = Shows.findOne(show_id).secret;
+    if(passcode && passcode === secret) {
+      Shows.remove({_id: show_id});
+      Slides.remove({show_id: show_id});
+    }
+  },
+
   confirmSecret: function(show_id, client_secret) {
     var show = Shows.findOne(show_id);
     if(show && show.secret === client_secret) {
@@ -52,6 +71,9 @@ Meteor.startup(function() {
   Meteor.default_server.method_handlers['/slides/insert'] = function () {};
   Meteor.default_server.method_handlers['/slides/update'] = function () {};
   Meteor.default_server.method_handlers['/slides/remove'] = function () {};
+  Meteor.default_server.method_handlers['/shows/insert'] = function () {};
+  Meteor.default_server.method_handlers['/shows/update'] = function () {};
+  Meteor.default_server.method_handlers['/shows/remove'] = function () {};
 });
 var animals = ['Aardvark', 'Albatross', 'Alligator', 'Alpaca', 'American-Bison', 'Ant', 'Anteater', 'Antelope', 'Ape', 'Armadillo',
 'Donkey', 'Baboon', 'Badger', 'Barracuda', 'Bat', 'Bear', 'Beaver', 'Bee', 'Bison', 'Boar',

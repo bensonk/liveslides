@@ -1,3 +1,10 @@
+function destroyShow() {
+  Meteor.call('removeShow', Session.get('show_id'), Session.get('passcode'));
+  Session.set('admin', null);
+  Session.set('client_current', null);
+  Session.set('passcode', null);
+  Session.set('show_id', null);
+}
 function update(selector, updates, multi) {
   if(!Session.get('passcode')) return;
   if(_.isString(selector)) selector = {_id: selector};

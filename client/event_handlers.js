@@ -12,6 +12,9 @@ Template.auth.events = {
   'click #auth_submit': function() {
     var secret = $('#auth_input').val();
     set_admin(secret);
+  },
+  'click #ok': function() {
+    set_admin(Session.get('passcode'));
   }
 }
 Template.slideshow_landing.events = {
@@ -56,6 +59,7 @@ Template.slide_list.events = {
   'click #index ul li.past': function(e) { set_current_slide(e.currentTarget.id); },
   'click #index ul li.future': function(e) { if(Session.get('admin')) set_current_slide(e.currentTarget.id); },
   'click #new-slide':  function(e) { insert_slide(e); },
+  'click #destroy-show':  function(e) { destroyShow();},
   'click a.admin-next': function(e) { e.stopPropagation(); move_next($(e.currentTarget).parents("li").attr("id")); },
   'click a.admin-prev': function(e) { e.stopPropagation(); move_prev($(e.currentTarget).parents("li").attr("id")); },
   'click a.admin-delete': function(e) { e.stopPropagation(); remove_slide($(e.currentTarget).parents("li").attr("id")); },
