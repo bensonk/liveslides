@@ -8,6 +8,12 @@ Template.show.events = {
      Session.set('show_id', this._id);
    }
 };
+Template.auth.events = {
+  'click #auth_submit': function() {
+    var secret = $('#auth_input').val();
+    set_admin(secret);
+  }
+}
 Template.slide_list.events = {
   'click #index ul li.past': function(e) { set_current_slide(e.currentTarget.id); },
   'click #index ul li.future': function(e) { if(Session.get('admin')) set_current_slide(e.currentTarget.id); },

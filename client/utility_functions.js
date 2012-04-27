@@ -43,8 +43,11 @@ function set_admin(code) {
     if(res) {
       Session.set("admin", true);
       Session.set('passcode', code);
+      Session.set('auth_page', false);
+      Router.setShow(Session.get('show_id'));
     }
     else {
+      Session.set('auth_page', true);
       Session.set("admin", false);
       Session.set('passcode', null);
     }

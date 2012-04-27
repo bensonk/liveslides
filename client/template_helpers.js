@@ -1,6 +1,15 @@
 Template.content.has_show = function() {
   return !!Session.get('show_id');
 };
+Template.content.auth_page = function() {
+  return Session.get('auth_page');
+};
+Template.auth.has_passcode = function() {
+  return !!Session.get('passcode');
+};
+Template.auth.passcode = function() {
+  return Session.get('passcode');
+};
 Template.slideshows.shows = function() {
   return Shows.find();
 };

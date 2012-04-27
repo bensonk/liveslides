@@ -8,11 +8,28 @@
 
 <template name="content">
   {{#if has_show}}
-    {{> slide_list}}
-    {{> current_slide}}
+    {{#if auth_page}}
+      {{> auth}}
+    {{else}}
+      {{> slide_list}}
+      {{> current_slide}}
+    {{/if}}
   {{else}}
     {{> slideshows}}
   {{/if}}
+</template>
+<template name="auth">
+  <div>
+    {{#if has_passcode}}
+      <h1> {{passcode}}</h1>
+      <span>You will need to enter this code in the future in order to edit slides.</span>
+      <span>Someday meteor will have auth working for real, this is just a temporary thing.</span>
+    {{else}}
+      <span> Please enter your passcode to edit the show</span>
+      <input id='auth_input' placeholder='purple-monkeyshit' />
+      <input id='auth_submit' type='button' value='submit' />
+    {{/if}}
+  </div>
 </template>
 <template name="slideshows">
   <div id='all_shows'>
