@@ -39,7 +39,7 @@
     <h3>Slides</h3>
     <ul>
       {{#each slides}}
-      <li class="slide-entry{{is_current}}{{is_client_current}}" id="{{_id}}">
+      <li class="slide-entry{{is_current}}{{is_client_current}}{{is_future}}" id="{{_id}}">
         {{#if admin}}
         <span class='admin-control'>
           <a href="#" class="admin-prev"><img src="/images/arrow_up.png" /></a>

@@ -11,8 +11,11 @@ div#index {
     margin: 0;
     padding: 0;
   }
-  li:hover {
+  li.past:hover {
     background: #bbf;
+  }
+  .future {
+    opacity: 0.5;
   }
 }
 .admin-edit {
@@ -38,12 +41,12 @@ li .title {
   float: left;
   line-height: 1.1;
 }
-li.slide-entry.current {
-  background: #fda !important;
-}
 
 li.slide-entry.client_current {
   background: #bbf;
+}
+li.slide-entry.current {
+  background: #fda;
 }
 
 li.slide-entry {

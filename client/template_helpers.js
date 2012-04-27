@@ -11,15 +11,14 @@ Template.slide_list.slides = function () {
 Template.slide_list.is_current = function() {
   return this.current ? " current" : "";
 };
+Template.slide_list.is_future = function() {
+  var slide = Slides.findOne(Session.get('current'))
+  if(!slide) return '';
+  return this.order > slide.order ? ' future' : ' past';
+}
 
 Template.slide_list.is_client_current = function() {
   return Session.equals("client_current", this._id) ? " client_current" : "";
-  var current = Session.get("current_slide");
-  var slide = Days.findOne(Session.get("client_current"));
-  if(current && !Session.get("admin"))
-    return (current._id == this._id) ? " client_current" : "";
-  else
-    return "";
 };
 
 Template.slide_list.admin = function() {
