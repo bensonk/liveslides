@@ -25,7 +25,7 @@ var ShowsRouter = Backbone.Router.extend({
   newShow: function() {
     Meteor.call('generateSecret', function(error, secretCode) {
       if(secretCode) {
-        var show_id = Shows.insert({title: 'something awesome', summary: 'nothing supplied as of yet', created_at: Date.now(), secret: secretCode});
+        var show_id = Shows.insert({title: 'something awesome', body: 'nothing supplied as of yet', created_at: Date.now(), secret: secretCode});
         Router.auth(show_id);
         set_admin(secretCode);
       }

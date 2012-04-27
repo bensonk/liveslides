@@ -1,5 +1,5 @@
 // Show - {title: String,
-//         summary: String,
+//         body: String,
 //         created_at: Integer}
 Meteor.publish('shows', function() {
   return Shows.find({}, {fields: {secret: false}});

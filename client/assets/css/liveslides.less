@@ -1,0 +1,34 @@
+li {
+  clear: both;
+  height: 2em;
+  padding-top: 1em;
+}
+li .order {
+  float: left;
+  margin-right: 5px;
+}
+li .title {
+  float: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 180px;
+  line-height: 1.1;
+}
+li.client_current {
+  background: #bbf;
+}
+li.current {
+  background: #fda;
+}
+li.first {
+  border-bottom: 1px dotted gray;
+  padding-bottom: 5px;
+  margin-bottom: 11px;
+}
+li.past:hover, li.first:hover {
+  background: #bbf;
+}
+li.future {
+  opacity: 0.5;
+}

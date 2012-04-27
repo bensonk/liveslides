@@ -1,9 +1,12 @@
 Template.content.has_show = function() {
   console.log('show?', Session.get('show_id'));
-  return !!Session.get('show_id');
+  return !!Shows.findOne(Session.get('show_id'));
 };
 Template.content.auth_page = function() {
   return Session.get('auth_page');
+};
+Template.content.has_current = function() {
+  return !!Session.get('client_current'); //Slides.findOne({current: true});
 };
 Template.auth.has_passcode = function() {
   return !!Session.get('passcode');
@@ -21,13 +24,15 @@ Template.slide_list.show_title = function() {
   var show = Shows.findOne(Session.get('show_id'));
   return show ? show.title : false;
 }
-
+Template.slide_list.no_current = function() {
+  return !!Session.get('client_current') ? '' : ' client_current';
+};
 Template.slide_list.is_current = function() {
   return this.current ? " current" : "";
 };
 Template.slide_list.is_future = function() {
-  var slide = Slides.findOne(Session.get('current'));
-  if(!slide) return ' past';
+  var slide = current_slide();
+  if(!slide) return ' future';
   return this.order > slide.order ? ' future' : ' past';
 }
 
@@ -38,6 +43,12 @@ Template.slide_list.is_client_current = function() {
 Template.slide_list.admin = function() {
   return Session.get("admin");
 };
+Template.slideshow_landing.slideshow = function() {
+  return Shows.findOne(Session.get('show_id'));
+};
+Template.slideshow_landing.editing_body = function() {
+  return Session.get('editingBody');
+}
 Template.current_slide.editing_body = function() {
   return Session.get('editingBody');
 }

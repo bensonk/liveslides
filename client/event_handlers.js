@@ -14,7 +14,46 @@ Template.auth.events = {
     set_admin(secret);
   }
 }
+Template.slideshow_landing.events = {
+  'dblclick #show-title': function(e) {
+    if(!Session.get('admin')) return;
+    $('#show-title').attr('contentEditable', true).focus();
+  },
+  'blur #show-title': function() {
+    $('#show-title').attr('contentEditable', null);
+  }, 
+  'keydown #show-title': function(e) {
+    if(e.keyCode === 13) {
+      e.preventDefault();
+      var show = Shows.findOne(Session.get('show_id')); 
+      var new_title = $('#show-title').text().replace(/(^\s+|\s+$)/g,'');
+      console.log(show);
+      if(new_title.length > 3 && Session.get('admin')) {
+        //update(show._id, {$set : {title: new_title}});
+        Shows.update(show._id, {$set: {title: new_title}});
+      } else {
+        $('#show-title').text(show.title);
+      }
+      $('#show-title').blur();
+    } 
+  },
+  'dblclick #show-body': function() {
+    if(!Session.get('admin')) return;
+    Session.set('editingBody', true);
+    Meteor.flush();
+    $('#show-body textarea').focus();
+  },
+  'blur #show-body': function(e) {
+    Session.set('editingBody', false);
+    var show = Shows.findOne(Session.get('show_id')); 
+    var new_body = $('#body-box').val();
+    if(show && !_.isEqual(show.body, new_body))
+      Shows.update(show._id, {$set: {body: new_body}});
+      //update(show._id, {$set: {body: new_body}});
+  }
+};
 Template.slide_list.events = {
+  'click #index ul li.first': function(e) { unset_current_slide(); },
   'click #index ul li.past': function(e) { set_current_slide(e.currentTarget.id); },
   'click #index ul li.future': function(e) { if(Session.get('admin')) set_current_slide(e.currentTarget.id); },
   'click #new-slide':  function(e) { insert_slide(e); },

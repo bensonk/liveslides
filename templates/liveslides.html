@@ -1,9 +1,14 @@
 <head>
   <title>liveslides</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-  {{> content}}
+  <div class='container-fluid'>
+    <div class="row-fluid">
+    {{> content}}
+  </div>
+  </div>
 </body>
 
 <template name="content">
@@ -11,8 +16,16 @@
     {{#if auth_page}}
       {{> auth}}
     {{else}}
+    <div class="span9">
+      {{#if has_current}}
+        {{> current_slide}}
+      {{else}}
+        {{> slideshow_landing}}
+      {{/if}}
+    </div>
+    <div class="span3">
       {{> slide_list}}
-      {{> current_slide}}
+    </div>
     {{/if}}
   {{else}}
     {{> slideshows}}
@@ -46,16 +59,16 @@
     <span id='slide-title'>
       {{title}}
     </span>
-    <span class='summary'>
-      {{#markdown}}{{summary}}{{/markdown}}
+    <span class='body'>
+      {{#markdown}}{{body}}{{/markdown}}
     </span>
   </div>
 </template>
 <template name="slide_list">
   <div id="index">
     <h3>Slides</h3>
-    <ul>
-      <li>
+    <ul class="unstyled">
+      <li class='first{{no_current}}' >
         <span class='order'> 0 </span>
         <span id='show-title'>
           {{show_title}}
@@ -63,6 +76,12 @@
       </li>
       {{#each slides}}
       <li class="slide-entry{{is_current}}{{is_client_current}}{{is_future}}" id="{{_id}}">
+        <span class='order'>
+          {{order}}
+        </span>
+        <span class='title'>
+          {{title}}
+        </span>
         {{#if admin}}
         <span class='admin-control'>
           <a href="#" class="admin-prev"><img src="/images/arrow_up.png" /></a>
@@ -70,12 +89,6 @@
           <a href="#" class="admin-delete"><img src="/images/delete.png" /></a>
         </span>
         {{/if}}
-        <span class='order'>
-          {{order}}
-        </span>
-        <span class='title'>
-          {{title}}
-        </span>
       </li>
       {{/each}}
     </ul>
@@ -86,7 +99,6 @@
 </template>
 
 <template name="current_slide">
-  {{#if slide}}
   {{#with slide}}
   <div id="main-slide">
     <div class="slide">
@@ -100,9 +112,22 @@
       </div>
     </div>
   </div>
-  {{prettify}}
   {{/with}}
-  {{/if}}
+  {{prettify}}
+</template>
+<template name="slideshow_landing">
+<div>
+  {{#with slideshow}}
+  <h1 id='show-title'>{{title}}</h1>
+  <div id='show-body'>
+    {{#if editing_body}}
+      {{> edit_body}}
+    {{else}}
+      {{#markdown}}{{{body}}}{{/markdown}}
+    {{/if}}
+  </div>
+  {{/with}}
+</div>
 </template>
 
 <template name="edit_body">

@@ -20,7 +20,14 @@ function remove(selector) {
 }
 
 function current_slide() {
-  return Slides.findOne({ current: true }) || Slides.findOne({}, {sort: {order: 1}});
+  return Slides.findOne({ current: true });
+}
+function unset_current_slide() {
+  if(Session.get('admin') && Session.get('passcode')) {
+    update({current: true}, {$set: {current: false}}, {multi: true});
+  }
+  Session.set('current', null);
+  Session.set('client_current', null);
 }
 
 function insert_slide() {
