@@ -22,12 +22,19 @@ function prettify() {
   $("pre").addClass('prettyprint');
   prettyPrint();
 }
+function unset_current_slide() {
+  if(Session.get('admin') && Session.get('passcode')) {
+    update({current: true}, {$set: {current: false}}, {multi: true});
+  }
+  Session.set('client_current', null);
+  Session.set('home', true);
+}
 function set_current_slide(id) {
   if(Session.equals("admin",true)) {
     set_db_current_slide(id);
-    Session.set("current", id);
   }
   Session.set("client_current", id);
+  Session.set('home', false);
 
   function set_db_current_slide(id) {
     if(!Session.equals('current', id)) {

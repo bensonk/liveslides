@@ -17,10 +17,10 @@
       {{> auth}}
     {{else}}
     <div class="span9">
-      {{#if has_current}}
-        {{> current_slide}}
-      {{else}}
+      {{#if show_home}}
         {{> slideshow_landing}}
+      {{else}}
+        {{> current_slide}}
       {{/if}}
     </div>
     <div class="span3">
@@ -100,34 +100,32 @@
 
 <template name="current_slide">
   {{#with slide}}
-  <div id="main-slide">
-    <div class="slide">
-      <h1 id="slide-title">{{title}}</h1>
-      <div id="slide-body">
-        {{#if editing_body}}
-          {{> edit_body}}
-        {{else}}
-          {{#markdown}}{{{body}}}{{/markdown}}
-        {{/if}}
-      </div>
+  <div>
+    <h1 id="slide-title">{{title}}</h1>
+    <div id="slide-body">
+      {{#if editing_body}}
+        {{> edit_body}}
+      {{else}}
+        {{#markdown}}{{{body}}}{{/markdown}}
+      {{/if}}
     </div>
   </div>
   {{/with}}
   {{prettify}}
 </template>
 <template name="slideshow_landing">
-<div>
   {{#with slideshow}}
-  <h1 id='show-title'>{{title}}</h1>
-  <div id='show-body'>
-    {{#if editing_body}}
-      {{> edit_body}}
-    {{else}}
-      {{#markdown}}{{{body}}}{{/markdown}}
-    {{/if}}
+  <div>
+    <h1 id='show-title'>{{title}}</h1>
+    <div id='show-body'>
+      {{#if editing_body}}
+        {{> edit_body}}
+      {{else}}
+        {{#markdown}}{{{body}}}{{/markdown}}
+      {{/if}}
+    </div>
   </div>
   {{/with}}
-</div>
 </template>
 
 <template name="edit_body">

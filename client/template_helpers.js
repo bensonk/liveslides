@@ -1,12 +1,11 @@
 Template.content.has_show = function() {
-  console.log('show?', Session.get('show_id'));
   return !!Shows.findOne(Session.get('show_id'));
 };
 Template.content.auth_page = function() {
   return Session.get('auth_page');
 };
-Template.content.has_current = function() {
-  return !!Session.get('client_current'); //Slides.findOne({current: true});
+Template.content.show_home = function() {
+  return !!Session.get('home') || Slides.find({current:true}).count()===0;
 };
 Template.auth.has_passcode = function() {
   return !!Session.get('passcode');
@@ -25,7 +24,9 @@ Template.slide_list.show_title = function() {
   return show ? show.title : false;
 }
 Template.slide_list.no_current = function() {
-  return !!Session.get('client_current') ? '' : ' client_current';
+  var a = !!current_slide() ? '': ' current';
+  var b = Session.equals('client_current', 'home') ? ' client_current' : '';
+  return !!Session.get('home') || Slides.find({current:true}).count()===0 ? ' client_current' : '';
 };
 Template.slide_list.is_current = function() {
   return this.current ? " current" : "";
@@ -60,12 +61,15 @@ Template.current_slide.prettify = function() {
     prettify();
   });
 }
+Template.current_slide.slide_or_home = function() {
+
+}
 Template.current_slide.slide = function() {
   var client = Slides.findOne(Session.get('client_current'));
   if(client) { 
     return client;
   } else {
-    var slide = Slides.findOne(Session.get("current"));
+    var slide = current_slide();
     return slide || false;
   }
 };

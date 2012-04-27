@@ -8,17 +8,19 @@ Meteor.autosubscribe(function() {
   if (show_id) {
     Router.setShow(Session.get('show_id'));
     Meteor.subscribe('slides', show_id, function() {
-      var current = current_slide(); 
-      if(current) {
-        Session.set('current', current._id);
-        Session.set('client_current', current._id);
-      }
 
       var handler = Slides.find({}, {sort: {order: 1}}).observe({
         added: function(doc, before_idx) {
         },
         changed: function(new_doc, at_idx, old_doc) {
-          if(new_doc.current) { Session.set('current', new_doc._id);}
+          if(new_doc.current) {
+            Session.set('home', false);
+          }
+          if(old_doc.current && !new_doc.current) {
+            if(Session.equals('client_current', new_doc._id) || !Session.get('client_current')) {
+              Session.set('client_current', null);
+            }
+          }
         },
         moved: function(doc, old_idx, new_idx) {
         },

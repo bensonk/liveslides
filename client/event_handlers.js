@@ -27,7 +27,6 @@ Template.slideshow_landing.events = {
       e.preventDefault();
       var show = Shows.findOne(Session.get('show_id')); 
       var new_title = $('#show-title').text().replace(/(^\s+|\s+$)/g,'');
-      console.log(show);
       if(new_title.length > 3 && Session.get('admin')) {
         //update(show._id, {$set : {title: new_title}});
         Shows.update(show._id, {$set: {title: new_title}});
@@ -75,7 +74,6 @@ Template.current_slide.events = {
       e.preventDefault();
       var slide = Slides.findOne(Session.get('client_current')); 
       var new_title = $('#slide-title').text().replace(/(^\s+|\s+$)/g,'');
-      console.log(slide);
       if(new_title.length > 3 && Session.get('admin')) {
         update(slide._id, {$set : {title: new_title}});
       } else {
