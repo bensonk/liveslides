@@ -48,8 +48,9 @@ function move_next(id) {
 }
 
 function remove_slide(id) {
+  if(slides.find().count() === 1) return; //Just edit the thang
   if(Session.equals('current', id)) {
-    set_current_slide(slides.findOne({current: false})._id);
+    set_current_slide(slides.findOne({current: false}, {sort: {order: 1}})._id);
   }
   var slide = slides.findOne(id);
   update({order : {$gt: slide.order}}, {$inc: {order: -1}}, {multi: true});
