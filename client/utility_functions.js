@@ -1,12 +1,14 @@
 Meteor.methods({
   update: function(selector, updates, multi) {
-    slides.update(selector, updates, multi);
+    selector.show_id = Session.get('show_id');
+    Slides.update(selector, updates, multi);
   },
   insert: function(attributes) {
-    slides.insert(attributes);
+    attributes.show_id = Session.get('show_id');
+    Slides.insert(attributes);
   },
   remove: function(selector) {
-    slides.remove(selector);
+    Slides.remove(selector);
   }
 });
 

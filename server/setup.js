@@ -1,34 +1,34 @@
 // Show - {title: String,
 //         summary: String,
 //         created_at: Integer}
-/*Meteor.publish('shows', function() {
+Meteor.publish('shows', function() {
   return Shows.find();
-});*/
+});
 
 //Slide -- {title: String,
 //          order: Integer,
 //          show_id: String,
 //          created_at: Integer,
 //          updated_at: Integer}
-Meteor.publish('slides', function() {
-  return slides.find();
+Meteor.publish('slides', function(show_id) {
+  return Slides.find({show_id: show_id});
 });
 
 var server_password = 'supersecret';
 Meteor.methods({
   update: function(selector, updates, multi, passcode) {
     if(passcode && passcode === server_password) {
-      return slides.update(selector, updates, multi);
+      return Slides.update(selector, updates, multi);
     }
   },
   insert: function(attributes, passcode) {
     if(passcode && passcode === server_password) {
-      return slides.insert(attributes);
+      return Slides.insert(attributes);
     }
   },
   remove: function(selector, passcode) {
     if(passcode && passcode === server_password) {
-      return slides.remove(selector);
+      return Slides.remove(selector);
     }
   }
 });

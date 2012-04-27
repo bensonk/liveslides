@@ -17,7 +17,7 @@ Template.current_slide.events = {
   'keydown #slide-title': function(e) {
     if(e.keyCode === 13) {
       e.preventDefault();
-      var slide = slides.findOne(Session.get('client_current')); 
+      var slide = Slides.findOne(Session.get('client_current')); 
       var new_title = $('#slide-title').text().replace(/(^\s+|\s+$)/g,'');
       if(new_title.length > 3 && Session.get('admin')) {
         update(slide._id, {$set : {title: new_title}});
@@ -35,7 +35,7 @@ Template.current_slide.events = {
   },
   'blur #slide-body': function(e) {
     Session.set('editingBody', false);
-    var slide = slides.findOne(Session.get('client_current')); 
+    var slide = Slides.findOne(Session.get('client_current')); 
     var new_body = $('#body-box').val();
     if(slide && !_.isEqual(slide.body, new_body))
       update(slide._id, {$set: {body: new_body}});

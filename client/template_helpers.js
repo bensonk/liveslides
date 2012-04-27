@@ -1,5 +1,5 @@
 Template.slide_list.slides = function () {
-  return slides.find({}, { sort: { 'order': 'desc' } });
+  return Slides.find({}, { sort: { 'order': 'desc' } });
 };
 
 Template.slide_list.is_current = function() {
@@ -31,11 +31,11 @@ Template.current_slide.prettify = function() {
   });
 }
 Template.current_slide.slide = function() {
-  var client = slides.findOne(Session.get('client_current'));
+  var client = Slides.findOne(Session.get('client_current'));
   if(client) { 
     return client;
   } else {
-    var slide = slides.findOne(Session.get("current"));
+    var slide = Slides.findOne(Session.get("current"));
     return slide || false;
   }
 };
