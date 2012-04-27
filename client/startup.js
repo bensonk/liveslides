@@ -11,8 +11,7 @@ var ShowsRouter = Backbone.Router.extend({
   auth: function(show_id) {
     Session.set("show_id", show_id);
     Session.set('auth_page', true);
-    console.log('auth', 'shows/'+show_id+'/auth');
-    this.navigate('shows/'+show_id+'/auth');
+    this.navigate('shows/'+show_id+'/auth', {trigger: true, replace: true});
   },
   main: function (show_id) {
     Session.set("show_id", show_id);
@@ -20,6 +19,7 @@ var ShowsRouter = Backbone.Router.extend({
   shows: function() {
     Session.set('show_id', null);
     Session.set('current', null);
+    Session.set('client_current', null);
     this.navigate('shows');
   },
   newShow: function() {
@@ -33,7 +33,7 @@ var ShowsRouter = Backbone.Router.extend({
   },
   setShow: function (show_id) {
     if(Session.get('auth_page')) return;
-    this.navigate('shows/'+show_id);
+    this.navigate('shows/'+show_id, {trigger: true, replace: true});
   }
 });
 

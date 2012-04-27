@@ -43,7 +43,7 @@
 </template>
 <template name="show">
   <div class='slideshow'>
-    <span class='title'>
+    <span id='slide-title'>
       {{title}}
     </span>
     <span class='summary'>
@@ -55,6 +55,12 @@
   <div id="index">
     <h3>Slides</h3>
     <ul>
+      <li>
+        <span class='order'> 0 </span>
+        <span id='show-title'>
+          {{show_title}}
+        </span>
+      </li>
       {{#each slides}}
       <li class="slide-entry{{is_current}}{{is_client_current}}{{is_future}}" id="{{_id}}">
         {{#if admin}}

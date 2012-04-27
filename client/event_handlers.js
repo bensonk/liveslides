@@ -36,6 +36,7 @@ Template.current_slide.events = {
       e.preventDefault();
       var slide = Slides.findOne(Session.get('client_current')); 
       var new_title = $('#slide-title').text().replace(/(^\s+|\s+$)/g,'');
+      console.log(slide);
       if(new_title.length > 3 && Session.get('admin')) {
         update(slide._id, {$set : {title: new_title}});
       } else {

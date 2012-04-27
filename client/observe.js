@@ -9,7 +9,10 @@ Meteor.autosubscribe(function() {
     Router.setShow(Session.get('show_id'));
     Meteor.subscribe('slides', show_id, function() {
       var current = current_slide(); 
-      if(current) Session.set('current', current_slide()._id);
+      if(current) {
+        Session.set('current', current._id);
+        Session.set('client_current', current._id);
+      }
 
       var handler = Slides.find({}, {sort: {order: 1}}).observe({
         added: function(doc, before_idx) {

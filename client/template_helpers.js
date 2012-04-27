@@ -1,4 +1,5 @@
 Template.content.has_show = function() {
+  console.log('show?', Session.get('show_id'));
   return !!Session.get('show_id');
 };
 Template.content.auth_page = function() {
@@ -16,6 +17,10 @@ Template.slideshows.shows = function() {
 Template.slide_list.slides = function () {
   return Slides.find({}, { sort: { 'order': 'desc' } });
 };
+Template.slide_list.show_title = function() {
+  var show = Shows.findOne(Session.get('show_id'));
+  return show ? show.title : false;
+}
 
 Template.slide_list.is_current = function() {
   return this.current ? " current" : "";
