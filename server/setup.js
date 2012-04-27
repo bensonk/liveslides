@@ -42,7 +42,7 @@ Meteor.methods({
     }
   },
   newShow: function(code) {
-    var show_id = Shows.insert({title: code, body: 'nothing supplied as of yet', created_at: Date.now(), secret: code});
+    var show_id = Shows.insert({title: 'Double click to edit', body: "I'm sorry, there isn't a tutorial yet", created_at: Date.now(), secret: code});
     return show_id;
   },
   removeShow: function(show_id, passcode) {
