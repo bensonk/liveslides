@@ -35,10 +35,10 @@ Meteor.methods({
     }
   },
   // -- Methods for Slideshows -- //
-  updateShow: function(selector, updates, multi, passcode) {
-    var show = Shows.findOne(selector.show_id);
+  updateShow: function(show_id, updates, passcode) {
+    var show = Shows.findOne(show_id);
     if(show && passcode && (passcode === show.secret)) {
-      return Shows.update(selector, updates, multi);
+      Shows.update({_id: show_id}, updates);
     }
   },
   newShow: function(code) {

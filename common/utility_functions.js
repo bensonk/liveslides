@@ -1,10 +1,4 @@
-function destroyShow() {
-  Meteor.call('removeShow', Session.get('show_id'), Session.get('passcode'));
-  Session.set('admin', null);
-  Session.set('client_current', null);
-  Session.set('passcode', null);
-  Session.set('show_id', null);
-}
+
 function update(selector, updates, multi) {
   if(!Session.get('passcode')) return;
   if(_.isString(selector)) selector = {_id: selector};
@@ -16,16 +10,25 @@ function insert(attributes) {
   if(!Session.get('passcode')) return;
   attributes.show_id = Session.get('show_id');
   Meteor.call('insert', attributes, Session.get('passcode'));
-  Shows.update(Session.get('show_id'), {$set: {count: Slides.find().count(), updated_at: Date.now()}})
+  updateShow({$set: {count: Slides.find().count(), updated_at: Date.now()}});
 }
 function remove(selector) {
   if(!Session.get('passcode')) return;
   if(_.isString(selector)) selector = {_id: selector};
   selector.show_id = Session.get('show_id');
   Meteor.call('remove', selector, Session.get('passcode'));
-  Shows.update(Session.get('show_id'), {$set: {count: Slides.find().count(), updated_at: Date.now()}})
+  updateShow({$set: {count: Slides.find().count(), updated_at: Date.now()}});
 }
-
+function updateShow(updates) {
+  Meteor.call('updateShow', Session.get('show_id'), updates, Session.get('passcode'));
+}
+function removeShow() {
+  Meteor.call('removeShow', Session.get('show_id'), Session.get('passcode'));
+  Session.set('admin', null);
+  Session.set('client_current', null);
+  Session.set('passcode', null);
+  Session.set('show_id', null);
+}
 function current_slide() {
   return Slides.findOne({ current: true });
 }

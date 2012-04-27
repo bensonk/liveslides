@@ -31,8 +31,7 @@ Template.slideshow_landing.events = {
       var show = Shows.findOne(Session.get('show_id')); 
       var new_title = $('#show-title').text().replace(/(^\s+|\s+$)/g,'');
       if(new_title.length > 3 && Session.get('admin')) {
-        //update(show._id, {$set : {title: new_title}});
-        Shows.update(show._id, {$set: {title: new_title}});
+        updateShow({$set: {title: new_title}});
       } else {
         $('#show-title').text(show.title);
       }
@@ -50,8 +49,7 @@ Template.slideshow_landing.events = {
     var show = Shows.findOne(Session.get('show_id')); 
     var new_body = $('#body-box').val();
     if(show && !_.isEqual(show.body, new_body))
-      Shows.update(show._id, {$set: {body: new_body}});
-      //update(show._id, {$set: {body: new_body}});
+      updateShow({$set: {body: new_body}});
   }
 };
 Template.slide_list.events = {
@@ -59,7 +57,7 @@ Template.slide_list.events = {
   'click #index ul li.past': function(e) { set_current_slide(e.currentTarget.id); },
   'click #index ul li.future': function(e) { if(Session.get('admin')) set_current_slide(e.currentTarget.id); },
   'click #new-slide':  function(e) { insert_slide(e); },
-  'click #destroy-show':  function(e) { destroyShow();},
+  'click #remove-show':  function(e) { removeShow();},
   'click a.admin-next': function(e) { e.stopPropagation(); move_next($(e.currentTarget).parents("li").attr("id")); },
   'click a.admin-prev': function(e) { e.stopPropagation(); move_prev($(e.currentTarget).parents("li").attr("id")); },
   'click a.admin-delete': function(e) { e.stopPropagation(); remove_slide($(e.currentTarget).parents("li").attr("id")); },
