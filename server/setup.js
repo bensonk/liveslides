@@ -2,7 +2,7 @@
 //         summary: String,
 //         created_at: Integer}
 Meteor.publish('shows', function() {
-  return Shows.find();
+  return Shows.find({}, {fields: {secret: false}});
 });
 
 //Slide -- {title: String,
@@ -17,17 +17,20 @@ Meteor.publish('slides', function(show_id) {
 var server_password = 'supersecret';
 Meteor.methods({
   update: function(selector, updates, multi, passcode) {
-    if(passcode && passcode === server_password) {
+    var show = Shows.findOne(selector.show_id);
+    if(show && passcode && (passcode === show.secret)) {
       return Slides.update(selector, updates, multi);
     }
   },
   insert: function(attributes, passcode) {
-    if(passcode && passcode === server_password) {
+    var secret = Shows.findOne(attributes.show_id).secret;
+    if(passcode && passcode === secret) {
       return Slides.insert(attributes);
     }
   },
   remove: function(selector, passcode) {
-    if(passcode && passcode === server_password) {
+    var secret = Shows.findOne(selector.show_id).secret;
+    if(passcode && passcode === secret) {
       return Slides.remove(selector);
     }
   }

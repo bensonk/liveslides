@@ -11,17 +11,27 @@
     {{> slide_list}}
     {{> current_slide}}
   {{else}}
-    {{> shows}}
+    {{> slideshows}}
   {{/if}}
 </template>
-<template name="shows">
+<template name="slideshows">
+  <div id='all_shows'>
+    <div id='new_show'>
+      <button class='button big'>New Slideshow</button>
+    </div>
     {{#each shows}}
       {{> show}}
     {{/each}}
+  </div>
 </template>
 <template name="show">
-  <div>
-    {{title}}
+  <div class='slideshow'>
+    <span class='title'>
+      {{title}}
+    </span>
+    <span class='summary'>
+      {{#markdown}}{{summary}}{{/markdown}}
+    </span>
   </div>
 </template>
 <template name="slide_list">

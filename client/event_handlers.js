@@ -1,3 +1,8 @@
+Template.slideshows.events = {
+  'click #new_show': function() {
+    Router.newShow();
+  }
+}
 Template.show.events = {
   'click': function() {
      Session.set('show_id', this._id);

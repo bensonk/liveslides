@@ -1,15 +1,20 @@
 function update(selector, updates, multi) {
   if(!Session.get('passcode')) return;
+  if(_.isString(selector)) selector = {_id: selector};
+  selector.show_id = Session.get('show_id');
   multi = multi || false;
   Meteor.call('update', selector, updates, multi, Session.get('passcode'));
 }
 function insert(attributes) {
   if(!Session.get('passcode')) return;
+  attributes.show_id = Session.get('show_id');
   Meteor.call('insert', attributes, Session.get('passcode'));
   Shows.update(Session.get('show_id'), {$set: {count: Slides.find().count(), updated_at: Date.now()}})
 }
 function remove(selector) {
   if(!Session.get('passcode')) return;
+  if(_.isString(selector)) selector = {_id: selector};
+  selector.show_id = Session.get('show_id');
   Meteor.call('remove', selector, Session.get('passcode'));
   Shows.update(Session.get('show_id'), {$set: {count: Slides.find().count(), updated_at: Date.now()}})
 }
@@ -22,7 +27,7 @@ function insert_slide() {
   var current = current_slide(); 
   if(current) {
     update({order : {$gt: current.order}}, {$inc: {order: 1}}, {multi: true});
-    update(current._id, {$set: {current: false}});
+    update({_id: current._id}, {$set: {current: false}});
     insert({ title: "New Slides"+current.order, body: "Edit me!", order: current.order+1, current: true });
   } else {
     insert({ title: "New Slides", body: "Edit me!", order: Slides.find().count() });

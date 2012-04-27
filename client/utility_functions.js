@@ -1,10 +1,8 @@
 Meteor.methods({
   update: function(selector, updates, multi) {
-    selector.show_id = Session.get('show_id');
     Slides.update(selector, updates, multi);
   },
   insert: function(attributes) {
-    attributes.show_id = Session.get('show_id');
     Slides.insert(attributes);
   },
   remove: function(selector) {
