@@ -21,7 +21,7 @@ var ShowsRouter = Backbone.Router.extend({
     var secretCode = Math.floor(Math.random()*1000);
     var show = Shows.insert({title: 'something awesome', summary: 'nothing supplied as of yet', created_at: Date.now(), secret: secretCode});
     Router.setShow(show);
-    Session.set('passcode', secretCode);
+    set_admin(secretCode);
   },
   setShow: function (show_id) {
     this.navigate('shows/'+show_id, true);

@@ -1,6 +1,7 @@
 
 Meteor.subscribe('shows');
 Session.set('show_id', null);
+Session.set('editingBody', false);
 
 Meteor.autosubscribe(function() {
   var show_id = Session.get('show_id');
@@ -9,7 +10,7 @@ Meteor.autosubscribe(function() {
     Meteor.subscribe('slides', show_id, function() {
       var current = current_slide(); 
       if(current) Session.set('current', current_slide()._id);
-      Session.set('editingBody', false);
+
       var handler = Slides.find({}, {sort: {order: 1}}).observe({
         added: function(doc, before_idx) {
         },

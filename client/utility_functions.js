@@ -37,11 +37,16 @@ function set_current_slide(id) {
   }
 }
 
-function set_admin(x) {
-  if(x) {
-    Session.set("admin", true);
-  }
-  else {
-    Session.set("admin", false);
-  }
+function set_admin(code) {
+  code = code || Session.get('passcode');
+  Meteor.call('confirmSecret', Session.get('show_id'), code, function(error, res) {
+    if(res) {
+      Session.set("admin", true);
+      Session.set('passcode', code);
+    }
+    else {
+      Session.set("admin", false);
+      Session.set('passcode', null);
+    }
+  })
 }

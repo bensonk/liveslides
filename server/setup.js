@@ -33,6 +33,14 @@ Meteor.methods({
     if(passcode && passcode === secret) {
       return Slides.remove(selector);
     }
+  },
+  confirmSecret: function(show_id, client_secret) {
+    var show = Shows.findOne(show_id);
+    if(show && show.secret === client_secret) {
+      return true;
+    } else {
+      return false;
+    }
   }
 });
 Meteor.startup(function() {

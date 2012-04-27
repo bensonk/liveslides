@@ -12,8 +12,8 @@ Template.slide_list.is_current = function() {
   return this.current ? " current" : "";
 };
 Template.slide_list.is_future = function() {
-  var slide = Slides.findOne(Session.get('current'))
-  if(!slide) return '';
+  var slide = Slides.findOne(Session.get('current'));
+  if(!slide) return ' past';
   return this.order > slide.order ? ' future' : ' past';
 }
 
