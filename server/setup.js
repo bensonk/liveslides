@@ -18,17 +18,17 @@ var server_password = 'supersecret';
 Meteor.methods({
   update: function(selector, updates, multi, passcode) {
     if(passcode && passcode === server_password) {
-      slides.update(selector, updates, multi);
+      return slides.update(selector, updates, multi);
     }
   },
   insert: function(attributes, passcode) {
     if(passcode && passcode === server_password) {
-      slides.insert(attributes);
+      return slides.insert(attributes);
     }
   },
   remove: function(selector, passcode) {
     if(passcode && passcode === server_password) {
-      slides.remove(selector);
+      return slides.remove(selector);
     }
   }
 });

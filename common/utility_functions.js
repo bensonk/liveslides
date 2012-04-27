@@ -16,16 +16,14 @@ function current_slide() {
   return slides.findOne({ current: true }) || slides.findOne({}, {sort: {order: 1}});
 }
 
-function add_slide() {
-  set_current_slide(insert({ title: "New Slide", body: "Edit me!", order: slides.find().count() }));
-}
 function insert_slide() {
   var current = current_slide(); 
   if(current) {
     update({order : {$gt: current.order}}, {$inc: {order: 1}}, {multi: true});
-    set_current_slide(insert({ title: "New Slide"+current.order, body: "Edit me!", order: current.order+1 }));
+    update(current._id, {$set: {current: false}});
+    insert({ title: "New Slide"+current.order, body: "Edit me!", order: current.order+1, current: true });
   } else {
-    set_current_slide(insert({ title: "New Slide", body: "Edit me!", order: slides.find().count() }));
+    insert({ title: "New Slide", body: "Edit me!", order: slides.find().count() });
   }
 }
 
@@ -50,7 +48,9 @@ function move_next(id) {
 }
 
 function remove_slide(id) {
-  if(current_slide()) set_current_slide(slides.findOne({current: false})._id);
+  if(Session.equals('current', id)) {
+    set_current_slide(slides.findOne({current: false})._id);
+  }
   var slide = slides.findOne(id);
   update({order : {$gt: slide.order}}, {$inc: {order: -1}}, {multi: true});
   remove({ _id: id });

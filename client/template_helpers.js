@@ -25,9 +25,6 @@ Template.current_slide.editing_body = function() {
 Template.current_slide.html_body = function() {
   return linen(this.body);
 }
-Template.current_slide.use_markdown = function() {
-  return !!Session.get('markdown');
-}
 Template.current_slide.prettify = function() {
   Meteor.defer(function() {
     prettify();
