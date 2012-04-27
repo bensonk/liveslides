@@ -1,3 +1,9 @@
+Template.content.has_show = function() {
+  return !!Session.get('show_id');
+};
+Template.shows.shows = function() {
+  return Shows.find();
+};
 Template.slide_list.slides = function () {
   return Slides.find({}, { sort: { 'order': 'desc' } });
 };

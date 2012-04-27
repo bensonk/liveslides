@@ -6,10 +6,12 @@ function update(selector, updates, multi) {
 function insert(attributes) {
   if(!Session.get('passcode')) return;
   Meteor.call('insert', attributes, Session.get('passcode'));
+  Shows.update(Session.get('show_id'), {$set: {count: Slides.find().count(), updated_at: Date.now()}})
 }
 function remove(selector) {
   if(!Session.get('passcode')) return;
   Meteor.call('remove', selector, Session.get('passcode'));
+  Shows.update(Session.get('show_id'), {$set: {count: Slides.find().count(), updated_at: Date.now()}})
 }
 
 function current_slide() {

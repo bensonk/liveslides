@@ -3,10 +3,27 @@
 </head>
 
 <body>
-  {{> slide_list}}
-  {{> current_slide}}
+  {{> content}}
 </body>
 
+<template name="content">
+  {{#if has_show}}
+    {{> slide_list}}
+    {{> current_slide}}
+  {{else}}
+    {{> shows}}
+  {{/if}}
+</template>
+<template name="shows">
+    {{#each shows}}
+      {{> show}}
+    {{/each}}
+</template>
+<template name="show">
+  <div>
+    {{title}}
+  </div>
+</template>
 <template name="slide_list">
   <div id="index">
     <h3>Slides</h3>

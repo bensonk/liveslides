@@ -1,3 +1,8 @@
+Template.show.events = {
+  'click': function() {
+     Session.set('show_id', this._id);
+   }
+};
 Template.slide_list.events = {
   'click #index ul li': function(e) { set_current_slide(e.currentTarget.id); },
   'click #new-slide':  function(e) { insert_slide(e); },
