@@ -27,6 +27,8 @@ Meteor.autosubscribe(function() {
         moved: function(doc, old_idx, new_idx) {
         },
         removed: function(old_doc, at_idx) {
+          if(Slides.find({current: true}).count()===0)
+            Session.set('home', true); 
         }
       });
     })

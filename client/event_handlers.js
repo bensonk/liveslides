@@ -53,9 +53,9 @@ Template.slideshow_landing.events = {
   }
 };
 Template.slide_list.events = {
-  'click #index ul li.first': function(e) { unset_current_slide(); },
-  'click #index ul li.past': function(e) { set_current_slide(e.currentTarget.id); },
-  'click #index ul li.future': function(e) { if(Session.get('admin')) set_current_slide(e.currentTarget.id); },
+  'click #index ol li.first': function(e) { unset_current_slide(); },
+  'click #index ol li.past': function(e) { set_current_slide(e.currentTarget.id); },
+  'click #index ol li.future': function(e) { if(Session.get('admin')) set_current_slide(e.currentTarget.id); },
   'click #new-slide':  function(e) { insert_slide(e); },
   'click #remove-show':  function(e) { removeShow();},
   'click a.admin-next': function(e) { e.stopPropagation(); move_next($(e.currentTarget).parents("li").attr("id")); },

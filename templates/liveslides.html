@@ -40,7 +40,7 @@
       <input id='ok' type='button' value='OK, take me to the show!' />
     {{else}}
       <span> Please enter your passcode to edit the show</span>
-      <input id='auth_input' placeholder='purple-monkeyshit' />
+      <input id='auth_input' />
       <input id='auth_submit' type='button' value='submit' />
     {{/if}}
   </div>
@@ -68,18 +68,14 @@
 <template name="slide_list">
   <div id="index">
     <h3>Slides</h3>
-    <ul class="unstyled">
+    <ol start='0'>
       <li class='first{{no_current}}' >
-        <span class='order'> 0 </span>
         <span id='show-title'>
           {{show_title}}
         </span>
       </li>
       {{#each slides}}
       <li class="slide-entry{{is_current}}{{is_client_current}}{{is_future}}" id="{{_id}}">
-        <span class='order'>
-          {{order}}
-        </span>
         <span class='title'>
           {{title}}
         </span>
@@ -92,7 +88,7 @@
         {{/if}}
       </li>
       {{/each}}
-    </ul>
+    </ol>
     {{#if admin}}
       <a href="#" id="new-slide">another!</a>
       <a href="#" id="remove-show">Destroy the show!</a>

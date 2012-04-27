@@ -24,8 +24,6 @@ Template.slide_list.show_title = function() {
   return show ? show.title : false;
 }
 Template.slide_list.no_current = function() {
-  var a = !!current_slide() ? '': ' current';
-  var b = Session.equals('client_current', 'home') ? ' client_current' : '';
   return !!Session.get('home') ? ' client_current' : '';
 };
 Template.slide_list.is_current = function() {
