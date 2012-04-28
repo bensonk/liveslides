@@ -9,7 +9,37 @@ Meteor.methods({
     Slides.remove(selector);
   }
 });
-
+function advanceShow(direction) {
+  var current = current_slide();
+    console.log(current, direction);
+  if(current) {
+    var move_to = Slides.findOne({order: current.order+direction});
+    if(move_to) {
+      set_db_current_slide(move_to._id);
+    } else {
+      unset_current_slide();
+    } 
+  } else {
+    var first = Slides.findOne({}, {sort: {order: 1}});
+    set_db_current_slide(first._id);
+  }
+}
+function presentationMode(val) {
+  if(val) {
+    Session.set('admin', false);
+    $('body').keydown(function(e) {
+      console.log('advance');
+      if(e.keyCode === 39) {
+        advanceShow(1);
+      } else if(e.keyCode===37) {
+        advanceShow(-1);
+      }
+    });
+  } else {
+    Session.set('admin', true); 
+    $('body').unbind('keydown');
+  }
+}
 function normalize_slide_order() {
   var slide_ids = $("#index li").map(function(i, s) { return s.id; });
   for(i in _.range(slide_ids.length)) {
@@ -23,11 +53,15 @@ function prettify() {
   prettyPrint();
 }
 function unset_current_slide() {
-  if(Session.get('admin') && Session.get('passcode')) {
+  if(Session.get('passcode')) {
     update({current: true}, {$set: {current: false}}, {multi: true});
   }
   Session.set('client_current', null);
   Session.set('home', true);
+}
+function set_db_current_slide(id) {
+  update({current: true}, { $set: { current: false } }, { multi: true });
+  update({ _id: id }, { $set: { current: true } });
 }
 function set_current_slide(id) {
   if(Session.equals("admin",true)) {
@@ -35,15 +69,7 @@ function set_current_slide(id) {
   }
   Session.set("client_current", id);
   Session.set('home', false);
-
-  function set_db_current_slide(id) {
-    if(!Session.equals('current', id)) {
-      update({current: true}, { $set: { current: false } }, { multi: true });
-      update({ _id: id }, { $set: { current: true } });
-    }
-  }
 }
-
 function set_admin(code) {
   code = code || Session.get('passcode');
   Meteor.call('confirmSecret', Session.get('show_id'), code, function(error, res) {

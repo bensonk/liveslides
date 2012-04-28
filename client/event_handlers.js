@@ -26,6 +26,7 @@ Template.slideshow_landing.events = {
     $('#show-title').attr('contentEditable', null);
   }, 
   'keydown #show-title': function(e) {
+    e.stopPropagation();
     if(e.keyCode === 13) {
       e.preventDefault();
       var show = Shows.findOne(Session.get('show_id')); 
@@ -54,8 +55,8 @@ Template.slideshow_landing.events = {
 };
 Template.slide_list.events = {
   'click #index ol li.first': function(e) { unset_current_slide(); },
-  'click #index ol li.past': function(e) { set_current_slide(e.currentTarget.id); },
-  'click #index ol li.future': function(e) { if(Session.get('admin')) set_current_slide(e.currentTarget.id); },
+  'click #index ol li.past': function(e) { console.log('click'); set_current_slide(e.currentTarget.id); },
+  'click #index ol li.future': function(e) {console.log('click'); if(Session.get('admin')) set_current_slide(e.currentTarget.id); },
   'click #new-slide':  function(e) { insert_slide(e); },
   'click .admin-next': function(e) { e.stopPropagation(); move_next($(e.currentTarget).parents("li").attr("id")); },
   'click .admin-prev': function(e) { e.stopPropagation(); move_prev($(e.currentTarget).parents("li").attr("id")); },
@@ -76,6 +77,7 @@ Template.current_slide.events = {
     $('#slide-title').attr('contentEditable', null);
   }, 
   'keydown #slide-title': function(e) {
+    e.stopPropagation();
     if(e.keyCode === 13) {
       e.preventDefault();
       var slide = Slides.findOne(Session.get('client_current')); 

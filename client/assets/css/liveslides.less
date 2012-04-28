@@ -1,8 +1,16 @@
 #index { 
+  ol {
+    //list-style-position: inside;
+    margin-left: 10px;
+  }
   li {
     clear: both;
     height: 2em;
     padding-top: 1em;
+    border: 1px solid transparent;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
   }
   li .order {
     float: left;
@@ -17,10 +25,14 @@
     line-height: 1.1;
   }
   li.client_current {
-    background: #bbf;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    background-color: #D2ECF9;
+    border-color: #BCE8F1;
   }
   li.current {
-    background: #fda;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    background-color: #FCF8E3;
+    border-color: #FBEED5;
   }
   li.first {
     border-bottom: 1px dotted gray;
@@ -28,10 +40,14 @@
     margin-bottom: 11px;
   }
   li.past:hover, li.first:hover {
-    background: #bbf;
+    background: #A6D9F2;
   }
   li.future {
     opacity: 0.5;
+  }
+  li .admin-control {
+    float: right;
+    margin-right: 5px;
   }
 }
 .slideshow {

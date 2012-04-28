@@ -6,12 +6,19 @@ var ShowsRouter = Backbone.Router.extend({
     "shows": "shows",
     "shows/new": "newShow",
     "shows/:show_id": "main",
-    "shows/:show_id/auth": "auth"
+    "shows/:show_id/secret": "secret",
+    "shows/:show_id/secret=:secret": "secret_url"
   },
-  auth: function(show_id) {
+  secret: function(show_id) {
     Session.set("show_id", show_id);
     Session.set('auth_page', true);
-    this.navigate('shows/'+show_id+'/auth', {trigger: true, replace: true});
+    this.navigate('shows/'+show_id+'/secret', {trigger: true, replace: true});
+  },
+  secret_url: function(show_id, secret) {
+    Session.set("show_id", show_id);
+    Session.set('auth_page', true);
+    Session.set('passcode', secret);
+    this.navigate('shows/'+show_id+'/secret='+secret, {trigger: true, replace: true});
   },
   main: function (show_id) {
     Session.set("show_id", show_id);
@@ -23,11 +30,13 @@ var ShowsRouter = Backbone.Router.extend({
     this.navigate('shows');
   },
   newShow: function() {
+  var that = this;
     Meteor.call('generateSecret', function(error, secretCode) {
       if(secretCode) {
         Meteor.call('newShow', secretCode, function(error, show_id) {
-          Router.auth(show_id);
+          //Router.secret(show_id);
           Session.set('passcode', secretCode);
+          that.navigate('shows/'+show_id+'/secret='+secretCode, {trigger:false, replace: true});
         });
       }
     })
