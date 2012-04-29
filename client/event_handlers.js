@@ -58,10 +58,10 @@ Template.index_slide.events = {
   'click .future': function() {if(Session.get('admin')) set_current_slide(this._id);},
   'click': function(e) {
     console.log(e, e.srcElement, this);
-    //move_prev(this._id);
-  },
-  'click li span a.admin-next': function() { move_next(this._id); },
-  'click li span a.admin-delete': function() { remove_slide(this._id);}
+    if($(e.srcElement).hasClass('delete')) {
+      remove_slide(this._id);
+    }
+  }
 };
 Template.slide_list.events = {
   'click #new-slide':  function() { insert_slide(); },
