@@ -108,16 +108,16 @@
   <h1 id="slide-title">{{title}}</h1>
   <div id="slide-body">
     {{#if editing_body}}
-      {{#if admin}}
-      <input id='save-button' type='button' class='btn' value='Save' />
-      <input id='cancel-button' type='button' class='btn' value='Cancel' />
-      {{/if}}
       {{> edit_body}}
-    {{else}}
       {{#if admin}}
-      <input id='edit-button' type='button' class='btn' value='Edit body' />
+      <input id='save-button' type='button' class='btn btn-inverse' value='Save' />
+      <input id='cancel-button' type='button' class='btn btn-inverse' value='Cancel' />
       {{/if}}
+    {{else}}
       {{#markdown}}{{{body}}}{{/markdown}}
+      {{#if admin}}
+      <input id='edit-button' type='button' class='btn btn-inverse' value='Edit body' />
+      {{/if}}
     {{/if}}
   </div>
   {{prettify}}

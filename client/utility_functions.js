@@ -32,10 +32,10 @@ function advaceToFirstOrLast(direction) {
   }
 }
 function presentationMode(val) {
-  $('body').unbind('keydown');
+  $('body').unbind('keydown').removeClass('presentation');
   if(val) {
     Session.set('admin', false);
-    $('body').keydown(function(e) {
+    $('body').addClass('presentation').keydown(function(e) {
       if(e.shiftKey) {
         if(e.keyCode === 72) {
           advaceToFirstOrLast(1);
@@ -48,6 +48,8 @@ function presentationMode(val) {
       } else if(_.include([37, 38, 75, 72], e.keyCode)) {
         e.preventDefault();
         advanceShow(-1);
+      } else if(e.keyCode ===27 ) {
+        presentationMode(false);
       } 
     });
   } else {
