@@ -37,7 +37,7 @@ var ShowsRouter = Backbone.Router.extend({
           //Router.secret(show_id);
           Session.set('passcode', secretCode);
           Session.set('auth_page', true);
-          that.navigate('shows/'+show_id+'/secret='+secretCode, {trigger:false, replace: true});
+          that.navigate('shows/'+show_id+'/secret='+secretCode, {trigger:true, replace: true});
         });
       }
     })
