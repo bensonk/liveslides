@@ -10,8 +10,8 @@ Meteor.methods({
   }
 });
 function advanceShow(direction) {
+  Session.set('client_current', null);
   var current = current_slide();
-    console.log(current, direction);
   if(current) {
     var move_to = Slides.findOne({order: current.order+direction});
     if(move_to) {
@@ -24,20 +24,34 @@ function advanceShow(direction) {
     set_db_current_slide(first._id);
   }
 }
+function advaceToFirstOrLast(direction) {
+  Session.set('client_current', null);
+  var slide = Slides.findOne({}, {sort: {order: direction}});
+  if(slide) {
+    set_db_current_slide(slide._id);
+  }
+}
 function presentationMode(val) {
+  $('body').unbind('keydown');
   if(val) {
     Session.set('admin', false);
     $('body').keydown(function(e) {
-      console.log('advance');
-      if(e.keyCode === 39) {
+      if(e.shiftKey) {
+        if(e.keyCode === 72) {
+          advaceToFirstOrLast(1);
+        } else if(e.keyCode === 76) {
+          advaceToFirstOrLast(-1);
+        }
+      } else if(_.include([39, 40, 74, 76], e.keyCode)) {
+        e.preventDefault();
         advanceShow(1);
-      } else if(e.keyCode===37) {
+      } else if(_.include([37, 38, 75, 72], e.keyCode)) {
+        e.preventDefault();
         advanceShow(-1);
-      }
+      } 
     });
   } else {
     Session.set('admin', true); 
-    $('body').unbind('keydown');
   }
 }
 function normalize_slide_order() {

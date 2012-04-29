@@ -41,7 +41,6 @@ Template.slide_list.events = {
 };
 Template.current_slide.events = {
   'dblclick #slide-title': function(e) {
-    console.log(e, this);
     if(!Session.get('admin')) return;
     $('#slide-title').attr('contentEditable', true).focus();
   },
