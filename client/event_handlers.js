@@ -27,6 +27,7 @@ Template.index_slide.events = {
   }
 };
 Template.slide_list.events = {
+  'click #presentation-mode': function() { presentationMode(true);},
   'click #new-slide':  function() { insert_slide(); },
   'click #remove-show':  function(e) { 
     if(confirm('Are you sure? This cannot be undone.')) {
