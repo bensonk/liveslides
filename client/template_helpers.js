@@ -45,17 +45,8 @@ Template.index_slide.is_client_current = function() {
 Template.index_slide.admin = function() {
   return Session.get("admin");
 };
-Template.slideshow_landing.slideshow = function() {
-  return Shows.findOne(Session.get('show_id'));
-};
-Template.slideshow_landing.editing_body = function() {
-  return Session.get('editingBody');
-}
 Template.current_slide.editing_body = function() {
   return Session.get('editingBody');
-}
-Template.current_slide.html_body = function() {
-  return linen(this.body);
 }
 Template.current_slide.prettify = function() {
   Meteor.defer(function() {
@@ -80,10 +71,7 @@ Template.current_slide.prettify = function() {
 Template.current_slide.admin = function() {
   return Session.get("admin");
 };
-Template.current_slide.slide_or_home = function() {
-
-}
-Template.current_slide.slide = function() {
+Template.slide_or_slideshow.slide = function() {
   var client = Slides.findOne(Session.get('client_current'));
   if(client) { 
     return client;
@@ -91,4 +79,10 @@ Template.current_slide.slide = function() {
     var slide = current_slide();
     return slide || false;
   }
+};
+Template.slide_or_slideshow.show_home = function() {
+  return !!Session.get('home');
+};
+Template.slide_or_slideshow.slideshow = function() {
+  return Shows.findOne(Session.get('show_id'));
 };

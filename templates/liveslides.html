@@ -17,11 +17,7 @@
       {{> auth}}
     {{else}}
     <div class="span9">
-      {{#if show_home}}
-        {{> slideshow_landing}}
-      {{else}}
-        {{> current_slide}}
-      {{/if}}
+      {{> slide_or_slideshow}}
     </div>
     <div class="span3">
       {{> slide_list}}
@@ -76,9 +72,7 @@
     <h3>Slides</h3>
     <ol start='0' id='slide_index'>
       <li class='first{{no_current}}' >
-        <span id='show-title'>
-          {{show_title}}
-        </span>
+        {{show_title}}
       </li>
       {{#each slides}}
         {{> index_slide}}
@@ -98,47 +92,36 @@
     {{/if}}
   </li>
 </template>
-<template name="current_slide">
-  {{#with slide}}
-    <h1 id="slide-title">{{title}}</h1>
-    <h2 id="slide-h2">{{title}}</h2>
-    <div id="slide-body">
-      {{#if editing_body}}
-        {{#if admin}}
-        <input id='save-button' type='button' class='btn' value='Save' />
-        <input id='cancel-button' type='button' class='btn' value='Cancel' />
-        {{/if}}
-        {{> edit_body}}
-      {{else}}
-        {{#if admin}}
-        <input id='edit-button' type='button' class='btn' value='Edit body' />
-        {{/if}}
-        {{#markdown}}{{{body}}}{{/markdown}}
-      {{/if}}
-    </div>
-  {{/with}}
-  {{prettify}}
+<template name="slide_or_slideshow">
+  {{#if show_home}}
+    {{#with slideshow}}
+      {{> current_slide}}
+    {{/with}}
+  {{else}}
+    {{#with slide}}
+      {{> current_slide}}
+    {{/with}}
+  {{/if}}
 </template>
-<template name="slideshow_landing">
-  {{#with slideshow}}
-    <h1 id='show-title'>{{title}}</h1>
-    <div id='show-body'>
-      {{#if editing_body}}
-        {{> edit_body}}
-      {{else}}
-        {{#markdown}}{{{body}}}{{/markdown}}
+<template name="current_slide">
+  <h1 id="slide-title">{{title}}</h1>
+  <div id="slide-body">
+    {{#if editing_body}}
+      {{#if admin}}
+      <input id='save-button' type='button' class='btn' value='Save' />
+      <input id='cancel-button' type='button' class='btn' value='Cancel' />
       {{/if}}
-    </div>
-  {{/with}}
+      {{> edit_body}}
+    {{else}}
+      {{#if admin}}
+      <input id='edit-button' type='button' class='btn' value='Edit body' />
+      {{/if}}
+      {{#markdown}}{{{body}}}{{/markdown}}
+    {{/if}}
+  </div>
+  {{prettify}}
 </template>
 
 <template name="edit_body">
   <textarea id="body-box">{{body}}</textarea>
-</template>
-
-<template name="edit_slide">
-  <div id="edit-slide">
-    <div><input type="text" id="title-box" value="{{title}}" /></div>
-    <div><textarea rows="25" cols="80" id="body-box">{{body}}</textarea></div>
-  </div>
 </template>
