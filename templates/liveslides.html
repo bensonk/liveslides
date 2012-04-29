@@ -110,13 +110,13 @@
     {{#if editing_body}}
       {{> edit_body}}
       {{#if admin}}
-      <input id='save-button' type='button' class='btn btn-inverse' value='Save' />
-      <input id='cancel-button' type='button' class='btn btn-inverse' value='Cancel' />
+      <input id='save-button' type='button' class='btn btn-warning' value='Save' />
+      <input id='cancel-button' type='button' class='btn btn-warning' value='Cancel' />
       {{/if}}
     {{else}}
       {{#markdown}}{{{body}}}{{/markdown}}
       {{#if admin}}
-      <input id='edit-button' type='button' class='btn btn-inverse' value='Edit body' />
+      <input id='edit-button' type='button' class='btn btn-warning' value='Edit body' />
       {{/if}}
     {{/if}}
   </div>
